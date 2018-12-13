@@ -7,7 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-
+    article_directory: '%kernel.project_dir%/web/uploads/images/product/'
 framework:
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
@@ -35,7 +35,7 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-
+    form_themes: ['bootstrap_4_layout.html.twig']
 # Doctrine Configuration
 doctrine:
     dbal:
