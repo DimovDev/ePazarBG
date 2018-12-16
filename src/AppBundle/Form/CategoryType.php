@@ -14,7 +14,9 @@ class CategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('products')->add('parent');
+        $builder->add('name')
+	        ->add('products')
+	        ->add('parent');
 
 
     }
@@ -32,13 +34,13 @@ class CategoryType extends AbstractType
 	    ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'appbundle_category';
-    }
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function getBlockPrefix()
+//    {
+//        return 'appbundle_category';
+//    }
 
 
 }

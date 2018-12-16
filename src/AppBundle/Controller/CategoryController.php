@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\CategoryType;
 
 /**
@@ -101,14 +102,18 @@ class CategoryController extends Controller
         ));
     }
 
-    /**
-     * Deletes a category entity.
-     *
-     * @Route("/{id}", name="category_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, Category $category)
+	/**
+	 * Deletes a category entity.
+	 *
+	 * @Route("/{id}", name="category_delete")
+	 * @Method("DELETE")
+	 * @param Request $request
+	 * @param Category $category
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+    public function deleteAction(Request $request, Category $category): \Symfony\Component\HttpFoundation\RedirectResponse
     {
+//    	die('here');
         $form = $this->createDeleteForm($category);
         $form->handleRequest($request);
 
@@ -121,13 +126,11 @@ class CategoryController extends Controller
         return $this->redirectToRoute('category_index');
     }
 
-    /**
-     * Creates a form to delete a category entity.
-     *
-     * @param Category $category The category entity
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
+	/**
+	 * Creates a form to delete a category entity.
+	 * @param Category $category
+	 * @return \Symfony\Component\Form\FormInterface
+	 */
     private function createDeleteForm(Category $category): \Symfony\Component\Form\FormInterface
     {
         return $this->createFormBuilder()

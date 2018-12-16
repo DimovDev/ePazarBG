@@ -29,6 +29,24 @@ class Category
      */
     private $name;
 
+    private $parent_id;
+	/**
+ * @return mixed
+ */
+public function getParentId()
+{
+	return $this->parent_id;
+}/**
+ * @param mixed $parent_id
+ * @return Category
+ */
+public function setParentId($parent_id)
+{
+	$this->parent_id = $parent_id;
+	return $this;
+}
+
+
 	/**
 	 * Product in the category.
 	 *
@@ -41,19 +59,48 @@ class Category
 	 * The category parent.
 	 *
 	 * @var Category
-	 * @ORM\ManyToOne(targetEntity="Category")
-	 * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
+	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category",inversedBy="children")
+	 * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true,onDelete="CASCADE")
 	 **/
 	protected $parent;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Category",mappedBy="parent")
+	 */
+	protected $children;
 
 	public function __construct()
 	{
 		$this->products = new ArrayCollection();
+		$this->children=new ArrayCollection();
+	}
+
+
+	/**
+	 * @return mixed
+	 */
+	public function getChildren()
+	{
+		return $this->children;
+	}
+
+	/**
+	 * @param mixed $children
+	 * @return Category
+	 * @return Category
+	 */
+	public function setChildren($children)
+	{
+		$this->children = $children;
+		return $this;
+	}
+	public function addChildren(Category $children){
+		$this->children[]=$children;
 	}
 
 	public function __toString()
 	{
-		return $this->getName();
+		return $this->getName() ;
 	}
 
 
