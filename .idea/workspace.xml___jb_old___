@@ -221,10 +221,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CategoryController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2329">
+            <state relative-caret-position="2499">
               <caret line="139" selection-start-line="139" selection-end-line="139" />
               <folding>
                 <element signature="e#40#70#0#PHP" expanded="true" />
@@ -239,8 +239,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2103">
-              <caret line="130" column="23" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="23" />
+            <state relative-caret-position="590">
+              <caret line="122" column="6" selection-start-line="122" selection-start-column="6" selection-end-line="122" selection-end-column="6" />
               <folding>
                 <element signature="e#40#69#0#PHP" expanded="true" />
               </folding>
@@ -253,7 +253,7 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/ProductType.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="459">
@@ -310,6 +310,7 @@
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/app/Resources/views/product/new.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/ProductType.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/snippets/produc_snippet.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/product/index.html.twig" />
@@ -317,7 +318,6 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/CategoryController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/snippets/product_snippet.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php" />
       </list>
     </option>
   </component>
@@ -584,7 +584,7 @@
       <workItem from="1544602853004" duration="18239000" />
       <workItem from="1544684107277" duration="15544000" />
       <workItem from="1544800279880" duration="2714000" />
-      <workItem from="1544852868248" duration="7606000" />
+      <workItem from="1544852868248" duration="6822000" />
     </task>
     <task id="LOCAL-00001" summary="create pure project">
       <created>1544542565840</created>
@@ -632,10 +632,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46365000" />
+    <option name="totallyTimeSpent" value="45581000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2828" y="-145" width="916" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49547738" visible="true" weight="0.27102804" />
       <window_info id="Structure" order="1" sideWeight="0.5045226" side_tool="true" visible="true" weight="0.27102804" />
@@ -880,6 +881,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CategoryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2499">
+          <caret line="139" selection-start-line="139" selection-end-line="139" />
+          <folding>
+            <element signature="e#40#70#0#PHP" expanded="true" />
+            <element signature="e#654#674#1#PHP" expanded="true" />
+            <element signature="e#718#744#0#PHP" expanded="true" />
+            <element signature="e#1466#1490#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="590">
+          <caret line="122" column="6" selection-start-line="122" selection-start-column="6" selection-end-line="122" selection-end-column="6" />
+          <folding>
+            <element signature="e#40#69#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/CategoryType.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/product/new.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -916,32 +943,6 @@
           <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding>
             <element signature="e#34#74#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/CategoryType.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ProductController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2103">
-          <caret line="130" column="23" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="23" />
-          <folding>
-            <element signature="e#40#69#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CategoryController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2329">
-          <caret line="139" selection-start-line="139" selection-end-line="139" />
-          <folding>
-            <element signature="e#40#70#0#PHP" expanded="true" />
-            <element signature="e#654#674#1#PHP" expanded="true" />
-            <element signature="e#718#744#0#PHP" expanded="true" />
-            <element signature="e#1466#1490#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
