@@ -26,7 +26,7 @@ class CategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $categories = $em->getRepository('AppBundle:Category')->getCategoriesByParent();
 
         return $this->render('category/index.html.twig', array(
             'categories' => $categories,

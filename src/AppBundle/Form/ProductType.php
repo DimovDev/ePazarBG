@@ -17,10 +17,17 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('description')->add('image')->add('price')->add('location')->add('phone')->add('categories',EntityType::class,array('class'=>Category::class, 'choice_label' => function($category, $key, $value) {
-	        /** @var Category $category */
-	        return strtoupper($category->getName(['name','id']));
-        },'group_by'=>'parent'));
+        $builder->add('title')->add('description')
+	        ->add('image')->add('price')
+	        ->add('location')->add('phone')
+	        ->add('categories',EntityType::class,
+		        array('class'=>Category::class,
+			        'choice_label' =>
+				        function($category, $key, $value) {
+					        /** @var Category $category */
+					        return strtoupper($category->getName(['name','id']));
+				        },'group_by'=>'parent'));
+
     }
     /**
      * {@inheritdoc}
