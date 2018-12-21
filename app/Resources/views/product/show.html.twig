@@ -5,10 +5,10 @@
 
     <table>
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
+            {#<tr>#}
+                {#<th>Id</th>#}
+                {#<td>{{ product.id }}</td>#}
+            {#</tr>#}
             <tr>
                 <th>Title</th>
                 <td>{{ product.title }}</td>
@@ -19,20 +19,20 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ product.image }}</td>
+                <img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="600" height="450">
             </tr>
             <tr>
                 <th>Price</th>
-                <td>{{ product.price }}</td>
+                <td>{{ product.price }} lv.</td>
             </tr>
             <tr>
                 <th>Dateadded</th>
                 <td>{% if product.dateAdded %}{{ product.dateAdded|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
-            <tr>
-                <th>Authorid</th>
-                <td>{{ product.authorId }}</td>
-            </tr>
+            {#<tr>#}
+                {#<th>Authorid</th>#}
+                {#<td>{{ product.authorId }}</td>#}
+            {#</tr>#}
             <tr>
                 <th>Location</th>
                 <td>{{ product.location }}</td>
@@ -41,10 +41,10 @@
                 <th>Phone</th>
                 <td>{{ product.phone }}</td>
             </tr>
-            <tr>
-                <th>Viewcount</th>
-                <td>{{ product.viewCount }}</td>
-            </tr>
+            {#<tr>#}
+                {#<th>Viewcount</th>#}
+                {#<td>{{ product.viewCount }}</td>#}
+            {#</tr>#}
         </tbody>
     </table>
 

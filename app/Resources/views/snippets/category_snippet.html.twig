@@ -1,0 +1,18 @@
+<div class="card border bg-light text-center shadow">
+
+    <a href="{{ path('category_show', { 'id': category.parent.id }) }}">{{ category.path|join('/') }}</a>
+    <h2 class="display-1">{{ category.parent }}</h2>
+    {#{{ category.name }}#}
+    {{ category.children|join }}
+    {{ category.path|join }}
+    {#{{ product.description }}#}
+    {#<img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="400" height="200">#}
+    {#{% if product.dateAdded %}{{ product.dateAdded|date('Y-m-d H:i:s') }}{% endif %}#}
+    {#{{ product.authorId }}#}
+    {#{{ product.location }}#}
+    {#{{ product.phone }}#}
+    {#{{ product.viewCount }}#}
+    {#<a class="btn btn-outline-secondary" href="{{ path('product_show', { 'id': product.id }) }}">show</a>#}
+    {#<a  class="btn btn-primary" href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>#}
+
+</div>

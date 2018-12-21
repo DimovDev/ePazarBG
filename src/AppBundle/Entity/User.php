@@ -52,6 +52,28 @@ class User implements UserInterface
 	private $roles;
 
 	/**
+	 * @var ORM\OneToOne(targetEntity="AppBundle\Entity\Profile",mappedBy="users")
+	 */
+	private $profiles;
+
+	/**
+	 * @return ORM\OneToOne
+	 */
+	public function getProfiles(): ORM\OneToOne
+	{
+		return $this->profiles;
+	}
+
+	/**
+	 * @param ORM\OneToOne $profiles
+	 * @returnUser
+	 */
+	public function setProfiles(ORM\OneToOne $profiles): void
+	{
+		$this->profiles = $profiles;
+
+	}
+	/**
 	 * @var ArrayCollection
 	 *
 	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product",mappedBy="author")

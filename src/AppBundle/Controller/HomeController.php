@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +14,10 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('home/index.html.twig');
+	    $products=$this
+		    ->getDoctrine()
+		    ->getRepository(Product::class)
+		    ->findBy([], ['viewCount' => 'desc', 'dateAdded'=> 'desc']);
+	    return $this->render('product/index.html.twig',['products'=>$products]);
     }
 }

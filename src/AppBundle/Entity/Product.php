@@ -411,5 +411,10 @@ class Product
 	{
 		return $this->getTitle();
 	}
+	public function getNameTree(): string
+	{
+		$n = substr_count($this->path, '/');
+		return str_repeat('..', ($n) * 5) . '|____' . $this->name;
+	}
 
 }

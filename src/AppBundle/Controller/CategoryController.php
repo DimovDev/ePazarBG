@@ -25,8 +25,10 @@ class CategoryController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+                $categories = $em->getRepository('AppBundle:Category')
+->findAll();
 
-        $categories = $em->getRepository('AppBundle:Category')->getCategoriesByParent();
+//->getCategoriesByParent();
 
         return $this->render('category/index.html.twig', array(
             'categories' => $categories,

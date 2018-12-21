@@ -3,9 +3,11 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Category;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\Product;
@@ -17,16 +19,33 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('description')
-	        ->add('image')->add('price')
-	        ->add('location')->add('phone')
-	        ->add('categories',EntityType::class,
-		        array('class'=>Category::class,
-			        'choice_label' =>
-				        function($category, $key, $value) {
-					        /** @var Category $category */
-					        return strtoupper($category->getName(['name','id']));
-				        },'group_by'=>'parent'));
+	    $parentsQueryBuilder = function (EntityRepository $er){
+		    return $er->createQueryBuilder('c')
+			    ->orderBy('c.path', 'ASC');
+	    };
+
+        $builder->add('title')
+	        ->add('description')
+	        ->add('image', FileType::class,
+		        ['data' => null])
+	        ->add('price')
+	        ->add('location')
+	        ->add('phone')
+		        ->add('categories', EntityType::class,
+			        array('class' => Category::class,
+//				        'label' => 'Parent Category',
+//				        'query_builder' => $parentsQueryBuilder,
+//				        'placeholder' => '/',
+//				        'choice_label' => 'getNameWithSpaces'
+//			        ));
+				        'choice_label' =>
+					        function ($category, $key, $value) {
+						        /** @var Category $category */
+						        return $category->getName(['name'=>$this->getParent()]);
+					        },
+				        'group_by' => 'parent'));
+
+
 
     }
     /**

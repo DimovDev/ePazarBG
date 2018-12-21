@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Profiles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Location</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for profile in profiles %}
+            <tr>
+                <td><a href="{{ path('profile_show', { 'id': profile.id }) }}">{{ profile.id }}</a></td>
+                <td>{{ profile.location }}</td>
+                <td>{{ profile.image }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('profile_show', { 'id': profile.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('profile_edit', { 'id': profile.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('profile_new') }}">Create a new profile</a>
+        </li>
+    </ul>
+{% endblock %}

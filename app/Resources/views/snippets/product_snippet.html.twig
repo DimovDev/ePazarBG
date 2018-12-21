@@ -1,16 +1,17 @@
 <div class="card border bg-light text-center shadow">
 
-    <a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a>
-    <h2 class="display-1">{{ product.title }}</h2>
-    {{ product.price }}
-    {{ product.category }}
-    {{ product.description }}
-    <img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="400" height="200">
-    {% if product.dateAdded %}{{ product.dateAdded|date('Y-m-d H:i:s') }}{% endif %}
-    {{ product.authorId }}
-    {{ product.location }}
-    {{ product.phone }}
-    {{ product.viewCount }}
+    {#<a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a>#}
+  {{ product.title }}
+    {#{{ product.categories|join }}#}
+    {#{{ product.description }}#}
+
+    <img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="600" height="450">
+   Price: {{ product.price }} lv.<br>
+    {#{% if product.dateAdded %}{{ product.dateAdded|date('Y-m-d H:i:s') }}{% endif %}#}
+    {#{{ product.authorId }}#}
+    {#{{ product.location }}#}
+    {#{{ product.phone }}#}
+   views: {{ product.viewCount }}
     <a class="btn btn-outline-secondary" href="{{ path('product_show', { 'id': product.id }) }}">show</a>
     <a  class="btn btn-primary" href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
 

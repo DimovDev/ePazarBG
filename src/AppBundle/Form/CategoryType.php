@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,10 +15,23 @@ class CategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')
+//        $builder->add('name')
+//
+//	        ->add('parent');
+	    $parentsQueryBuilder = function (EntityRepository $er){
+		    return $er->createQueryBuilder('c')
+			    ->orderBy('c.path', 'ASC');
+	    };
 
-	        ->add('parent');
-
+	    $builder
+		    ->add('name')
+//		    ->add('description')
+		    ->add('parent', null,[
+			    'label' => 'Parent Category',
+			    'query_builder' => $parentsQueryBuilder,
+			    'placeholder' => '/',
+			    'choice_label' => 'getNameTree',
+		    ]); //   getPathFormatted
 
     }
     /**

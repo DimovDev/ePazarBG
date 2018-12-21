@@ -5,7 +5,26 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    {% import _self as macro %}
+
+    {{ macro.multilevel(product.categories) }}
+
+    {% macro multilevel(array) %}
+        {% import _self as macro %}
+        <ul>
+            {% for item in array %}
+                <li>
+                    {% if item is iterable %}
+                        {{ macro.multilevel(item) }}
+                    {% else %}
+                        {{ item }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endmacro %}
+
+    <input type="submit" value="Create" />
     {{ form_end(form) }}
 
     <ul>
