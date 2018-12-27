@@ -17,7 +17,7 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('location')
-	        ->add('image',FileType::class);
+	        ->add('image',FileType::class , ['data' => null]);
     }/**
      * {@inheritdoc}
      */

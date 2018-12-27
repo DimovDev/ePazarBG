@@ -39,7 +39,7 @@ class Profile
 	/**
 	 *@var User
 	 *
-	 * @ORM\OneToOne(targetEntity="AppBundle\Entity\User",inversedBy="profiles")
+	 * @ORM\OneToOne(targetEntity="AppBundle\Entity\User",mappedBy="profiles")
 	 * @ORM\JoinColumn(name="users_id", referencedColumnName="id")
 	 */
 	private $users;

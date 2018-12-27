@@ -52,9 +52,37 @@ class User implements UserInterface
 	private $roles;
 
 	/**
-	 * @var ORM\OneToOne(targetEntity="AppBundle\Entity\Profile",mappedBy="users")
+	 * @var ORM\OneToOne(targetEntity="AppBundle\Entity\Profile",inversedBy="users")
 	 */
 	private $profiles;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="image", type="string", length=255)
+	 */
+	private $image;
+
+	/**
+	 * @return string
+	 */
+	public function getImage():? string
+	{
+		return $this->image;
+	}
+
+	/**
+	 * @param string $image
+	 * @return User
+	 */
+	public function setImage(? string $image)
+	{if(!$image){
+		$this->image='';
+	}else {
+		$this->image = $image  ;
+	}
+		return $this;
+	}
 
 	/**
 	 * @return ORM\OneToOne
@@ -66,11 +94,12 @@ class User implements UserInterface
 
 	/**
 	 * @param ORM\OneToOne $profiles
-	 * @returnUser
+	 * @return User
 	 */
-	public function setProfiles(ORM\OneToOne $profiles): void
+	public function setProfiles(ORM\OneToOne $profiles)
 	{
 		$this->profiles = $profiles;
+		return $this;
 
 	}
 	/**

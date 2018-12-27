@@ -77,7 +77,7 @@ class Category
 
 	/**
 	 * @var string
-	 * @ORM\Column(name="path", type="text", unique=true)
+	 * @ORM\Column(name="path", type="text")
 	 */
 	private $path;
 
