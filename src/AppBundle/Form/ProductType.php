@@ -24,6 +24,7 @@ class ProductType extends AbstractType
 			    ->orderBy('c.path', 'ASC');
 	    };
 
+
         $builder->add('title')
 	        ->add('description')
 	        ->add('image', FileType::class,
@@ -31,19 +32,25 @@ class ProductType extends AbstractType
 	        ->add('price')
 	        ->add('location')
 	        ->add('phone')
-		        ->add('categories', EntityType::class,
-			        array('class' => Category::class,
-//				        'label' => 'Parent Category',
-//				        'query_builder' => $parentsQueryBuilder,
-//				        'placeholder' => '/',
-//				        'choice_label' => 'getNameWithSpaces'
-//			        ));
-				        'choice_label' =>
-					        function ($category, $key, $value) {
-						        /** @var Category $category */
-						        return $category->getName(['name'=>$this->getParent()]);
-					        },
-				        'group_by' => 'parent'));
+//		        ->add('categories', EntityType::class,
+//			        array('class' => Category::class,
+////				        'label' => 'Parent Category',
+////				        'query_builder' => $parentsQueryBuilder,
+////				        'placeholder' => '/',
+////				        'choice_label' => 'getNameWithSpaces'
+////			        ));
+//				        'choice_label' =>'getNameTree',
+////					        function ($category, $key, $value) {
+////						        /** @var Category $category */
+//						        return $category->getName(['name'=>$this->getParent()]);
+//					        },
+   ->add('categories', null,[
+			    'label' => 'Parent Category',
+			    'query_builder' => $parentsQueryBuilder,
+			    'placeholder' => '/',
+			    'choice_label' => 'getOptionPath',
+		    ]); //   getPathFormatted
+//				        'group_by' => 'parent'));
 
 
 

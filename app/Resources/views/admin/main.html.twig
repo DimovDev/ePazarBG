@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+
+
+
+
+    <div class="card w-50">
+        <div class="card-body">
+             {#@var user \AppBundle\Entity\User#}
+            {% for user in allUsers %}
+                <h5 class="card-title">{{ user.fullName }}</h5>
+                <a href="{{ path('profile_edit') }}" class="btn btn-primary">Edit</a>
+                {#@var role \AppBundle\Entity\Role#}
+                {% for role in allRoles %}
+                    <label>
+                        <select name="role">
+                            <option value="{{ role.id }}">{{ role.name }}</option>
+                        </select>
+                    </label>
+                {% endfor %}
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

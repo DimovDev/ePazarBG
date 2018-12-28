@@ -68,7 +68,7 @@ class UserController extends Controller
 				} else {
 					$userRole = $roleRepository->findOneBy(['name' => 'ROLE_USER']);
 				}
-				$user->setImage('default_image.png');
+				$user->setImage('default_image_new.jpg');
 				$user->addRole($userRole);
 				$user->setPassword($password);
 				$em = $this->getDoctrine()->getManager();
@@ -130,9 +130,15 @@ if (!$user->getImage()){
 		$form = $this->createForm(UserType::class, $user);
 
 		$form->handleRequest($request);
-//		echo '<pre>'; print_r($request);die;
 
-		if ($form->isSubmitted()) {
+	if ($request->getUser()['password']['second'] !== $request->getPassword()['password']['first']){
+		$this->addFlash(
+			'error',
+			'Passwords don\'t  match');
+		return $this->render('users/editProfile.html.twig', array('form' => $form->createView()));
+	}
+
+		if ($form->isSubmitted() && $form->isValid()) {
 //
 			/** @var UploadedFile $file */
 //

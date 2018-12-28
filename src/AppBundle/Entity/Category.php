@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 class Category
 {
+
 	/**
 	 * @var int
 	 *
@@ -254,5 +255,10 @@ class Category
 	{
 		$n = substr_count($this->path, '/');
 		return str_repeat('..', ($n) * 5) . '|____' . $this->name;
+	}
+
+	public function getOptionPath(): string
+	{
+		return $this->getPath();
 	}
 }

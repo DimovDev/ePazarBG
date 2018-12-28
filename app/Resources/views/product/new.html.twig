@@ -32,4 +32,31 @@
             <a href="{{ path('product_index') }}">Back to the list</a>
         </li>
     </ul>
+
+<script>
+
+
+
+
+    var allNames =[];
+    var allParents = [];
+    $('#product_categories option').each(function(){
+
+        var text = $(this).text();
+        var name = text.split('/').reverse()[0]
+        var parent = text.replace(name,'');
+        allParents.push(parent);
+        allNames.push(name);
+    })
+
+    $('#product_categories option').each(function(){
+        var text = $(this).text()+'/';
+        if(allParents.indexOf(text) > 0) {
+            $(this).remove();
+        }
+    })
+
+
+
+</script>
 {% endblock %}

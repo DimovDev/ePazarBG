@@ -72,7 +72,6 @@ class CategoryController extends Controller
     public function showAction(Category $category)
     {
         $deleteForm = $this->createDeleteForm($category);
-
         return $this->render('category/show.html.twig', array(
             'category' => $category,
             'delete_form' => $deleteForm->createView(),
@@ -88,7 +87,7 @@ class CategoryController extends Controller
     public function editAction(Request $request, Category $category)
     {
         $deleteForm = $this->createDeleteForm($category);
-        $editForm = $this->createForm('AppBundle\Form\CategoryType', $category);
+        $editForm = $this->createForm(CategoryType::class, $category);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -107,7 +106,7 @@ class CategoryController extends Controller
 	/**
 	 * Deletes a category entity.
 	 *
-	 * @Route("/{id}", name="category_delete")
+	 * @Route("/delete/{id}", name="category_delete")
 	 * @Method("DELETE")
 	 * @param Request $request
 	 * @param Category $category
@@ -115,11 +114,12 @@ class CategoryController extends Controller
 	 */
     public function deleteAction(Request $request, Category $category): \Symfony\Component\HttpFoundation\RedirectResponse
     {
-//    	die('here');
+
         $form = $this->createDeleteForm($category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);
             $em->flush();
