@@ -161,6 +161,19 @@ class User implements UserInterface
 		}
 		return $stringRoles;
 	}
+	public function editRoles(): array
+	{
+		$stringRoles = [];
+		foreach ($this->roles as $role) {
+			/**
+			 * @var $role Role
+			 */
+			$stringRoles[] = $role->setRole();
+		}
+		return $stringRoles;
+	}
+
+
 
 	/**
 	 * @param Role $role
@@ -257,6 +270,16 @@ class User implements UserInterface
 	}
 
 	/**
+	 * @param Role|null $roles
+	 * @return User
+	 */
+	public function setRoles(Role $roles=null)
+	{
+		$this->roles= $roles;
+		return $this;
+	}
+
+	/**
 	 * Returns the salt that was originally used to encode the password.
 	 *
 	 * This can return null if the password was not encoded using a salt.
@@ -288,8 +311,13 @@ class User implements UserInterface
 	{
 		// TODO: Implement eraseCredentials() method.
 	}
+
+	/**
+	 * @return ArrayCollection|string
+	 */
 	public function __toString() {
 		return $this->email;
+
 	}
 
 

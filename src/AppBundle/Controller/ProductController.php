@@ -128,7 +128,7 @@ class ProductController extends Controller
 	        $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
 
 	        try {
-		        $file->move($this->getParameter('article_directory'),
+		        $file->move($this->getParameter('product_directory'),
 			        $fileName);
 	        } catch (FileException $ex) {
 

@@ -41,6 +41,24 @@ public function __construct()
 	$this->users=new ArrayCollection();
 }
 
+	/**
+	 *
+	 */
+	public function getUsers()
+	{
+		return $this->users;
+	}
+
+	/**
+	 * @param ArrayCollection $users
+	 *
+	 */
+	public function setUsers(ArrayCollection $users): void
+	{
+		$this->users = $users;
+
+	}
+
 
     /**
      * Get id.
@@ -80,4 +98,9 @@ public function __construct()
     {
     	return $this->getName();
     }
+
+	public function setRole(): string
+	{
+		return $this->getName();
+	}
 }

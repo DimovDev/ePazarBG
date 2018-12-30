@@ -143,7 +143,7 @@ if (!$user->getImage()){
 			/** @var UploadedFile $file */
 //
 			$file = $form->get('image')->getData();
-			dump($file);
+
 
 			$fileName = md5(uniqid('', true))
 				.'.'.$file->guessExtension();

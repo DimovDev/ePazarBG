@@ -8,18 +8,25 @@
         <div class="card-body">
              {#@var user \AppBundle\Entity\User#}
             {% for user in allUsers %}
-                <h5 class="card-title">{{ user.fullName }}</h5>
+                <h5 class="card-title">{{ user.email }}</h5>
+                <h5 class="card-title">{{ user.roles|join}}</h5>
+                {#<h5 class="card-title">{{ user.fullName }}</h5>#}
                 <a href="{{ path('profile_edit') }}" class="btn btn-primary">Edit</a>
+                <a href="{{ path('profile_edit') }}" class="btn btn-danger">Delete</a>
                 {#@var role \AppBundle\Entity\Role#}
-                {% for role in allRoles %}
-                    <label>
-                        <select name="role">
-                            <option value="{{ role.id }}">{{ role.name }}</option>
-                        </select>
-                    </label>
-                {% endfor %}
-                <br>
+
             {% endfor %}
+            <hr />
+
+            {% for role in allRoles %}
+                {#<a href="{{ path('roles_edit') }}" class="btn btn-success">Role Edit</a>#}
+                <label>
+                    <select name="role">
+                        <option value="{{ role.id }}">{{ role.name }}</option>
+                    </select>
+                </label>
+            {% endfor %}
+            <br>
         </div>
     </div>
 {% endblock %}
