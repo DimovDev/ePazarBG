@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="600" height="450">
+                <img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="400" height="200">
             </tr>
             <tr>
                 <th>Price</th>
@@ -46,19 +46,71 @@
                 {#<td>{{ product.viewCount }}</td>#}
             {#</tr>#}
         </tbody>
+
+    <small class="author">
+        {{ product.author.fullName }}
+    </small>
+
+    {#<a href="{{ path('article_likes', {'id': article.id}) }}"><i class="glyphicon glyphicon-thumbs-up"></i></a>#}
+
+    <button class="btn btn-success btn-sm" id="btnComment">Add</button>
+
+    <div id="form">
+    </div>
+
+    {% for review in reviews %}
+        <p>{{ review.content }}</p>
+        <small>{{ review.dateAdded|date("F jS \\a\\t g:ia", 'Europe/Sofia') }}</small>
+        <small>{{ review.author.fullName }}</small>
+        <hr />
+    {% endfor %}
+
+    <footer>
+        <div class="pull-right">
+            {% if app.getUser() and  app.getUser().isAdmin()   %}
+                <a class="btn btn-danger btn-xs" href="{{ path('product_delete', {'id':product.id}) }}">delete &raquo;</a>
+                <a class="btn btn-success btn-xs" href="{{ path('product_edit', {'id':product.id}) }}">edit &raquo;</a>
+            {% endif %}
+            <a class="btn btn-default btn-xs" href="{{ path('homepage') }}">back &raquo;</a>
+        </div>
+    </footer>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('product_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('product_edit', { 'id': product.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+
+
+    <script>
+
+        let form = $(`
+            <form method="post" action="{{ path('reviews_new', {'id': product.id}) }}">
+                <div class="form-group">
+                    <!--<label class="col-sm-4 control-label" for="article_content">Content</label>-->
+                    <div class="col-sm-6">
+                        <textarea class="form-control" rows="6" id="comment_content" name="comment[content]"></textarea>
+                        <input class="btn btn-success btn-sm" type="submit" value="Create" />
+                    </div>
+                </div>
+            </form>
+        `);
+
+        $('#btnComment').click(function (e) {
+            // alert('hi');
+            e.preventDefault();
+            $('#form').append(form);
+            $('#form').toggle();
+        })
+    </script>
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('product_index') }}">Back to the list</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#<a href="{{ path('product_edit', { 'id': product.id }) }}">Edit</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#{{ form_start(delete_form) }}#}
+                {#<input type="submit" value="Delete">#}
+            {#{{ form_end(delete_form) }}#}
+        {#</li>#}
+    {#</ul>#}
 {% endblock %}

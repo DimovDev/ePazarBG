@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
+use AppBundle\Entity\Review;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -96,6 +97,11 @@ class ProductController extends Controller
 			->getDoctrine()
 			->getRepository(Product::class )
 	        ->find($id);
+
+	    $reviews = $this->getDoctrine()
+		    ->getRepository(Review::class)
+		    ->findAllComments($product);
+
 		$product->setViewCount($product->getViewCount()+1);
 	    $em = $this->getDoctrine()->getManager();
 	    $em->persist($product);
@@ -103,6 +109,7 @@ class ProductController extends Controller
 
         return $this->render('product/show.html.twig', array(
             'product' => $product,
+            'reviews'=>$reviews,
             'delete_form' => $deleteForm->createView(),
         ));
     }

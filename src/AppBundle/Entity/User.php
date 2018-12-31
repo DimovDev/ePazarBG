@@ -57,6 +57,31 @@ class User implements UserInterface
 	private $profiles;
 
 	/**
+	 * @var ArrayCollection|Review[]
+	 *
+	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Review",mappedBy="author",cascade={"remove"})
+	 */
+	private $reviews;
+
+	/**
+	 * @return Review[]|ArrayCollection
+	 */
+	public function getReviews()
+	{
+		return $this->reviews;
+	}
+
+	/**
+	 * @param Review|null $review
+	 * @return User
+	 */
+	public function addReview(Review $review=null): User
+	{
+		$this->reviews[] = $review;
+		return $this;
+	}
+
+	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="image", type="string", length=255)

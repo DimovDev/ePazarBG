@@ -9,10 +9,10 @@
              {#@var user \AppBundle\Entity\User#}
             {% for user in allUsers %}
                 <h5 class="card-title">{{ user.email }}</h5>
-                <h5 class="card-title">{{ user.roles|join}}</h5>
+                <h5 class="card-title">{{ user.roles|join('  / ')}}</h5>
                 {#<h5 class="card-title">{{ user.fullName }}</h5>#}
                 <a href="{{ path('profile_edit') }}" class="btn btn-primary">Edit</a>
-                <a href="{{ path('profile_edit') }}" class="btn btn-danger">Delete</a>
+                <a href="{{ path('profile_edit') }}" class="btn btn-danger">Delete</a><hr />
                 {#@var role \AppBundle\Entity\Role#}
 
             {% endfor %}
