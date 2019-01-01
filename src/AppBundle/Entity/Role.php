@@ -103,4 +103,14 @@ public function __construct()
 	{
 		return $this->getName();
 	}
+	/**
+	 * @param User $user
+	 * @return Role
+	 */
+	public function addUser(User $user): Role
+	{
+		$this->users[] = $user;
+		$user->addRole($this);
+		return $this;
+	}
 }

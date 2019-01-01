@@ -2,12 +2,13 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * ReviewType
- *@ParamConverter("product", class="AppBundle\Entity\Product", options={"mapping": {"product": "id"}})
+ *
  * @ORM\Table(name="reviews")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReviewRepository")
  */
@@ -44,9 +45,10 @@ class Review
     private $rating;
 
 	/**
-	 * @ParamConverter("product", class="AppBundle\Entity\Product", options={"mapping": {"product": "id"}})
+	 *
 	 * @var Product
 	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product",inversedBy="reviews")
+	 *  @ORM\JoinColumn(name="product_id", referencedColumnName="id")
 	 */
     private $product;
 
@@ -59,12 +61,14 @@ class Review
     public function __construct()
     {
     	$this->dateAdded=new \DateTime('now');
+
+
     }
 
 	/**
 	 * @return Product
 	 */
-	public function getProduct(): Product
+	public function getProduct()
 	{
 		return $this->product;
 	}
@@ -82,7 +86,7 @@ class Review
 	/**
 	 * @return User
 	 */
-	public function getAuthor(): User
+	public function getAuthor()
 	{
 		return $this->author;
 	}
@@ -156,13 +160,13 @@ class Review
     }
 
     /**
-     * Set raiting.
+     * Set rating.
      *
      * @param int $rating
      *
      * @return Review
      */
-    public function setRaiting($rating)
+    public function setRating($rating): Review
     {
         $this->rating = $rating;
 

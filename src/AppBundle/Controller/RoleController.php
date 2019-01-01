@@ -89,36 +89,36 @@ class RoleController extends Controller
 	 * @param User $users
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
-	public function editAction(Request $request, Role $role, User $users)
+	public function editAction(Request $request, Role $role)
 	{
 		$deleteForm = $this->createDeleteForm($role);
 		$editForm = $this->createForm(RoleType::class, $role);
 
 		$editForm->handleRequest($request);
-dump($request);
+		dump($request);
 		if ($editForm->isSubmitted() && $editForm->isValid()) {
 			$allUsers = $this
 				->getDoctrine()
 				->getRepository(User::class)
 				->findAll();
 
-//		        $user = $this->getUser();
-
-//			        $user->addRole($role);
-			        dump($editForm);
-
-			$edrole = $editForm->getData();
+		        $user = $this->getUser();
+			foreach ($allUsers as $user){
+				$role->addUser($user);
+				$em = $this->getDoctrine()->getManager();
+				$em->merge($user);
+				$em->flush();
+			}
 			$em = $this->getDoctrine()->getManager();
-			$em->persist($edrole);
-			dump($role);
+			$em->merge($role);
 			$em->flush();
-			dump($role);
+
 			return $this->redirectToRoute('roles_index', array('id' => $role->getId()));
 		}
 
 		return $this->render('role/edit.html.twig', array(
 			'role' => $role,
-			'user' => $users,
+
 			'edit_form' => $editForm->createView(),
 			'delete_form' => $deleteForm->createView(),
 		));

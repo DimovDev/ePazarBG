@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="400" height="200">
+                <img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="400" height="400">
             </tr>
             <tr>
                 <th>Price</th>
@@ -53,17 +53,6 @@
 
     {#<a href="{{ path('article_likes', {'id': article.id}) }}"><i class="glyphicon glyphicon-thumbs-up"></i></a>#}
 
-    <button class="btn btn-success btn-sm" id="btnComment">Add</button>
-
-    <div id="form">
-    </div>
-
-    {% for review in reviews %}
-        <p>{{ review.content }}</p>
-        <small>{{ review.dateAdded|date("F jS \\a\\t g:ia", 'Europe/Sofia') }}</small>
-        <small>{{ review.author.fullName }}</small>
-        <hr />
-    {% endfor %}
 
     <footer>
         <div class="pull-right">
@@ -76,17 +65,36 @@
     </footer>
     </table>
 
+    <button class="btn btn-success btn-sm" id="btnComment">Add Review</button>
 
+    <div id="form">
+    </div>
 
+    {% for review in reviews %}
+        <p>{{ review.content }}</p>
+        <small>{{ review.dateAdded|date("F jS \\a\\t g:ia", 'Europe/Sofia') }}</small>
+        <small>{{ review.author.fullName }}</small>
+        <hr />
+
+    <footer>
+        <div class="pull-right">
+            {% if app.getUser() and  app.getUser().isAdmin()   %}
+                <a class="btn btn-danger btn-xs" href="{{ path('reviews_delete', {'id':review.id}) }}">delete &raquo;</a>
+                <a class="btn btn-success btn-xs" href="{{ path('reviews_edit', {'id':reviews.id}) }}">edit &raquo;</a>
+            {% endif %}
+            <a class="btn btn-default btn-xs" href="{{ path('homepage') }}">back &raquo;</a>
+        </div>
+    </footer>
+    {% endfor %}
 
     <script>
 
         let form = $(`
             <form method="post" action="{{ path('reviews_new', {'id': product.id}) }}">
                 <div class="form-group">
-                    <!--<label class="col-sm-4 control-label" for="article_content">Content</label>-->
+                    <!--<label class="col-sm-4 control-label" for="product_content">Content</label>-->
                     <div class="col-sm-6">
-                        <textarea class="form-control" rows="6" id="comment_content" name="comment[content]"></textarea>
+                        <textarea class="form-control" rows="6" id="review_content" name="review[content]"></textarea>
                         <input class="btn btn-success btn-sm" type="submit" value="Create" />
                     </div>
                 </div>
