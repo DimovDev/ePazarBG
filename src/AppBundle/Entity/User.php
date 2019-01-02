@@ -64,6 +64,18 @@ class User implements UserInterface
 	private $reviews;
 
 	/**
+	 * @var ArrayCollection|Message[]
+	 * @ORM\OneToMany(targetEntity="Message", mappedBy="sender")
+	 */
+	private $sentMessages;
+
+	/**
+	 * @var ArrayCollection|Message[]
+	 * @ORM\OneToMany(targetEntity="Message", mappedBy="recipient")
+	 */
+	private $receivedMessages;
+
+	/**
 	 * @return Review[]|ArrayCollection
 	 */
 	public function getReviews()
@@ -159,6 +171,9 @@ class User implements UserInterface
 	{
 		$this->roles = new ArrayCollection();
 		$this->products = new ArrayCollection();
+		$this->reviews=new ArrayCollection();
+		$this->sentMessages = new ArrayCollection();
+		$this->receivedMessages = new ArrayCollection();
 	}
 
 	/**
@@ -332,9 +347,10 @@ class User implements UserInterface
 	 * This is important if, at any given point, sensitive information like
 	 * the plain-text password is stored on this object.
 	 */
-	public function eraseCredentials()
+	public function eraseCredentials():User
 	{
 		// TODO: Implement eraseCredentials() method.
+		return $this;
 	}
 
 	/**
@@ -352,6 +368,60 @@ class User implements UserInterface
 	public function isAdmin()
 	{
 		return in_array('ROLE_ADMIN',$this->getRoles());
+	}
+	/**
+	 * @param Message $message
+	 * @return User
+	 */
+	public function addSentMessage(Message $message): User
+	{
+		$this->sentMessages[] = $message;
+		return $this;
+	}
+	/**
+	 * @param Message $message
+	 * @return User
+	 */
+	public function addReceivedMessage(Message $message): User
+	{
+		$this->receivedMessages[] = $message;
+		return $this;
+	}
+
+	/**
+	 * @return Message[]|ArrayCollection
+	 */
+	public function getSentMessages()
+	{
+		return $this->sentMessages;
+	}
+
+	/**
+	 * @param Message[]|ArrayCollection $sentMessages
+	 * @return User
+	 */
+	public function setSentMessages($sentMessages)
+	{
+		$this->sentMessages = $sentMessages;
+		return $this;
+	}
+
+	/**
+	 * @return Message[]|ArrayCollection
+	 */
+	public function getReceivedMessages()
+	{
+		return $this->receivedMessages;
+	}
+
+	/**
+	 * @param Message[]|ArrayCollection $receivedMessages
+	 * @return User
+	 */
+	public function setReceivedMessages($receivedMessages)
+	{
+		$this->receivedMessages = $receivedMessages;
+		return $this;
 	}
 
 

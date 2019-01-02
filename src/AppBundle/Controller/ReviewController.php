@@ -15,22 +15,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReviewController extends Controller
 {
-//    /**
-//     * Lists all review entities.
-//     *
-//     * @Route("reviews/", name="reviews_index")
-//     * @Method("GET")
-//     */
-//    public function indexAction()
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $reviews = $em->getRepository('AppBundle:Review')->findAll();
-//
-//        return $this->render('review/index.html.twig', array(
-//            'reviews' => $reviews,
-//        ));
-//    }
+    /**
+     * Lists all review entities.
+     *
+     * @Route("reviews/", name="reviews_index")
+     * @Method("GET")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $reviews = $em->getRepository('AppBundle:Review')->findAll();
+
+        return $this->render('review/index.html.twig', array(
+            'reviews' => $reviews,
+        ));
+    }
 
 	/**
 	 * Creates a new review entity.
@@ -77,22 +77,22 @@ dump($user);
 //        ));
     }
 
-//    /**
-//     * Finds and displays a review entity.
-//     *
-//     * @Route("reviews/{id}", name="reviews_show")
-//     * @Method("GET")
-//     */
-//    public function showAction(Review $review)
-//    {
-//        $deleteForm = $this->createDeleteForm($review);
-//
-//        return $this->render('review/show.html.twig', array(
-//            'review' => $review,
-//            'delete_form' => $deleteForm->createView(),
-//        ));
-//    }
-//
+    /**
+     * Finds and displays a review entity.
+     *
+     * @Route("reviews/{id}", name="reviews_show")
+     * @Method("GET")
+     */
+    public function showAction(Review $review)
+    {
+        $deleteForm = $this->createDeleteForm($review);
+
+        return $this->render('review/show.html.twig', array(
+            'review' => $review,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
     /**
      * Displays a form to edit an existing review entity.
      *

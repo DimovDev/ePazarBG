@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,9 +43,9 @@ public function __construct()
 }
 
 	/**
-	 *
+	 *@return Collection
 	 */
-	public function getUsers()
+	public function getUsers():Collection
 	{
 		return $this->users;
 	}
