@@ -14,10 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-
+/**
+ * @package AppBundle\Controller
+ */
 class UserController extends Controller
 {
 	/**
@@ -92,7 +95,9 @@ class UserController extends Controller
 
 
 		}
-		return $this->render('users/register.html.twig', array('form' => $form->createView()));
+		return $this->render('users/register.html.twig', [
+			'form' => $form->createView()
+		]);
 	}
 	/**
 	 * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
@@ -116,15 +121,16 @@ if (!$user->getImage()){
 	/**
 	 * @Route ("/editProfile" , name="profile_edit")
 	 * @param Request $request
-	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @return Response
 	 */
-	public function editProfileAction(Request $request): \Symfony\Component\HttpFoundation\Response
+	public function editProfileAction(Request $request): Response
 	{
 		$user = $this->getUser();
 
 
 		if ($user === null) {
-			return $this->redirectToRoute('homepage');
+			$this->addFlash('info', 'You must be logged in.');
+			return $this->redirectToRoute('login');
 		}
 
 		$form = $this->createForm(UserType::class, $user);

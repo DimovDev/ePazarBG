@@ -9,8 +9,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\RoleType;
+use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * Role controller.
@@ -82,92 +85,100 @@ class RoleController extends Controller
 	/**
 	 * Displays a form to edit an existing role entity.
 	 *
-	 * @Route("/{id}/edit", name="roles_edit")
-	 * @Method({"GET", "POST"})
-	 * @param Request $request
+	 * @Route("/{id}/edit", name="roles_edit", methods={"GET", "POST"})
 	 * @param Role $role
-	 * @param User $users
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 * @param Request $request
+	 * @return RedirectResponse|Response
 	 */
 	public function editAction(Role $role, Request $request)
 	{
 		$deleteForm = $this->createDeleteForm($role);
+		$existingUsers = $role->getUsers()->toArray();
+		$oldName = $role->getName();
+
 		$editForm = $this->createForm(RoleType::class, $role);
-
 		$editForm->handleRequest($request);
-		dump($request);
+
 		if ($editForm->isSubmitted() && $editForm->isValid()) {
-//			$allUsers = $this
-//				->getDoctrine()
-//				->getRepository(User::class)
-//				->findAll();
-//			$arr = $request->request->all();
-//			dump($arr);
-//			foreach ($arr as $roles) {
-//					dump($roles);
-//				foreach ($roles as $user) {
-//				dump($user);
-			$user=$request->getUser($role);
-			dump($user);
+
+			$newName = $role->getName();
+
+			if ($oldName !== $newName && $this->getDoctrine()->getRepository(Role::class)->findOneBy(['name' => $newName])) {
+				$this->addFlash('error',
+					"Cannot rename to $newName because this name is already taken!");
+			} else {
+				$em = $this->getDoctrine()->getManager();
+				$newUsers = $role->getUsers()->toArray();
+
+				// detach the existing teg-article relations
+				foreach ($existingUsers as $user) {
+					/** @var User $user */
+					$role->getUsers()->removeElement($user);
+					$user->removeRole($role);
+					$em->persist($user);
+				}
+
+				// attach the newly selected tag-article relations
+				foreach ($newUsers as $user) {
 					$role->addUser($user);
-//dump($role);dump($user);die();
-////				$em = $this->getDoctrine()->getManager();
-////				$em->merge($user);
-////				$em->flush();
-//				}
-//			}
-				$em = $this->getDoctrine()->getManager();
-				$em->merge($role);
-				dump($role);
+					$em->persist($user);
+				}
+				$em->persist($role);
 				$em->flush();
-			dump($role);
-				return $this->redirectToRoute('roles_index', array('id' => $role->getId()));
+
+				$this->addFlash('success',
+					"$role successfully updated");
 			}
 
-			return $this->render('role/edit.html.twig', array(
-				'role' => $role,
-
-				'edit_form' => $editForm->createView(),
-				'delete_form' => $deleteForm->createView(),
-			));
+			return $this->redirectToRoute('roles_index', array('id' => $role->getId()));
 		}
 
-		/**
-		 * Deletes a role entity.
-		 *
-		 * @Route("/delete/{id}", name="roles_delete")
-		 * @Method("DELETE")
-		 */
-		public
-		function deleteAction(Request $request, Role $role)
-		{
-			$form = $this->createDeleteForm($role);
-			$form->handleRequest($request);
+		return $this->render('role/edit.html.twig', array(
+			'role' => $role,
 
-			if ($form->isSubmitted() && $form->isValid()) {
-				$em = $this->getDoctrine()->getManager();
-				$em->remove($role);
-				$em->flush();
-			}
-
-			return $this->redirectToRoute('roles_index');
-		}
-
-		/**
-		 * Creates a form to delete a role entity.
-		 *
-		 * @param Role $role The role entity
-		 *
-		 * @return \Symfony\Component\Form\Form The form
-		 */
-		private
-		function createDeleteForm(Role $role)
-		{
-			return $this->createFormBuilder()
-				->setAction($this->generateUrl('roles_delete', array('id' => $role->getId())))
-				->setMethod('DELETE')
-				->getForm();
-		}
-
-
+			'edit_form' => $editForm->createView(),
+			'delete_form' => $deleteForm->createView(),
+		));
 	}
+
+	/**
+	 * Deletes a role entity.
+	 *
+	 * @Route("/delete/{id}", name="roles_delete")
+	 * @Method("DELETE")
+	 */
+	public
+	function deleteAction(
+		Request $request, Role $role)
+	{
+		$form = $this->createDeleteForm($role);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid()) {
+			$em = $this->getDoctrine()->getManager();
+			$em->remove($role);
+			$em->flush();
+		}
+
+		return $this->redirectToRoute('roles_index');
+	}
+
+	/**
+	 * Creates a form to delete a role entity.
+	 *
+	 * @param Role $role The role entity
+	 *
+	 * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
+	 */
+	private
+	function createDeleteForm(
+		Role $role)
+	{
+		return $this->createFormBuilder()
+			->setAction($this->generateUrl('roles_delete', array('id' => $role->getId())))
+			->setMethod('DELETE')
+			->getForm();
+	}
+
+
+}

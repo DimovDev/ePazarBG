@@ -5,6 +5,7 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
+
     {% import _self as macro %}
 
     {{ macro.multilevel(product.categories) }}
@@ -20,12 +21,13 @@
                         {{ item }}
                     {% endif %}
                 </li>
+
             {% endfor %}
         </ul>
     {% endmacro %}
-
     <input type="submit" value="Create" />
     {{ form_end(form) }}
+    <div class="d-flex flex-row bd-highlight mb-3">{% include 'snippets/map_snippet.html.twig' %}</div>
 
     <ul>
         <li>

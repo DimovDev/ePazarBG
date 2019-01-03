@@ -425,4 +425,18 @@ class User implements UserInterface
 	}
 
 
+	public function hasRole($role): bool
+	{
+		return $this->roles->contains($role);
+	}
+
+
+	public function removeRole(Role $role): User
+	{
+		if ($this->hasRole($role)) {
+			$this->roles->removeElement($role);
+		}
+		return $this;
+	}
+
 }

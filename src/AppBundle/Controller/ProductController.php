@@ -56,7 +56,7 @@ class ProductController extends Controller
 	        $fileName = md5(uniqid('', true)) . '.' . $file->guessExtension();
 
 	        try {
-		        $file->move($this->getParameter('article_directory'),
+		        $file->move($this->getParameter('product_directory'),
 			        $fileName);
 	        } catch (FileException $ex) {
 
@@ -182,14 +182,15 @@ class ProductController extends Controller
         return $this->redirectToRoute('product_index');
     }
 
-    /**
-     * Creates a form to delete a product entity.
-     *
-     * @param Product $product The product entity
-     *
-     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
-     */
-    private function createDeleteForm(Product $product)
+	/**
+	 * Creates a form to delete a product entity.
+	 *
+	 * @param Product $product The product entity
+	 *
+	 *
+	 * @return \Symfony\Component\Form\FormInterface
+	 */
+    private function createDeleteForm(Product $product): \Symfony\Component\Form\FormInterface
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('product_delete', array('id' => $product->getId())))

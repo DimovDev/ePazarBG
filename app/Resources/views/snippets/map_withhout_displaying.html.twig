@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Places Search Box</title>
+    {#<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>#}
+
+</head>
+<body>
+<input id="locationName" name="locationName" type="text">
+
+<script>
+    function init() {
+        var options = {
+            types: ['(cities)']
+        };
+
+        var input = document.getElementById('locationName');
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
+    google.maps.event.addDomListener(window, 'load', init);
+
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACvPVmE7AtM9dhMpx-jMTyq-JIVDIh-TE&libraries=places"></script>
+{#<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEMNgYJZI51nUtSLTeGh_MtOtyuID8hqQ&libraries=places&callback=initAutocomplete"#}
+        {#async defer></script>#}
+{#<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACvPVmE7AtM9dhMpx-jMTyq-JIVDIh-TE&callback=initMap"#}
+        {#type="text/javascript"></script>#}
+</body>
+</html>

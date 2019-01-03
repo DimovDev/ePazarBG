@@ -1,112 +1,72 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% set articlesPerRow = 3 %}
+
     <h1>Products list</h1>
     <ul>
         <li>
-            <a href="{{ path('product_new') }}">Create a new product</a>
+            <a href="{{ path('product_new') }}"><i class="fab fa-adversal" style="font-size: 2.2em;"></i> Create a new product</a>
         </li>
     </ul>
-    {#<table>#}
-        {#<thead>#}
-            {#<tr>#}
-                {#<th>Id</th>#}
-                {#<th>Title</th>#}
-                {#<th>Description</th>#}
-                {#<th>Image</th>#}
-                {#<th>Price</th>#}
-                {#<th>Dateadded</th>#}
-                {#<th>Authorid</th>#}
-                {#<th>Location</th>#}
-                {#<th>Phone</th>#}
-                {#<th>Viewcount</th>#}
-                {#<th>Actions</th>#}
-            {#</tr>#}
-        {#</thead>#}
-        {#<tbody>#}
-        {% for product in products %}
-            {#<tr>#}
-                {#<td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>#}
-                {#<td>{{ product.title }}</td>#}
-                {#<td>{{ product.description }}</td>#}
-                {#<td>{{ product.image }}</td>#}
-                {#<td>{{ product.price }}</td>#}
-                {#<td>{% if product.dateAdded %}{{ product.dateAdded|date('Y-m-d H:i:s') }}{% endif %}</td>#}
-                {#<td>{{ product.authorId }}</td>#}
-                {#<td>{{ product.location }}</td>#}
-                {#<td>{{ product.phone }}</td>#}
-                {#<td>{{ product.viewCount }}</td>#}
-
-                {#<ul>#}
-                    {#{% for item in products[category] %}#}
-                        {#<li>{{ item }}</li>#}
-                    {#{% endfor %}#}
-                {#</ul>#}
-                {#{% embed 'product/index.html.twig' with { items: ['parent', 'child'] %}#}
-                {#{% endembed %}#}
-
-                {#<td>#}
-            {#{% for articlesPerRow in products %}#}
-            {#{% articlesPerRow = 3 %}#}
-            {#{% set r = ((i % articlesPerRow) == 0) %}#}
-            {#{% if r %}<div class="row my-4">{% endif %}#}
-            <div class="d-flex flex-row bd-highlight mb-3">{% include 'snippets/product_snippet.html.twig' %}</div>
-            {#{% if loop.last or ((i % articlesPerRow) == articlesPerRow-1) %}</div>#}
-            {#{% endif %}#}
-                {#{% endfor %}#}
-                    {#<ul>#}
-                        {#<li>#}
-                            {#<a href="{{ path('product_show', { 'id': product.id }) }}">show</a>#}
-                        {#</li>#}
-                        {#<li>#}
-                            {#<a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>#}
-                        {#</li>#}
-                    {#</ul>#}
-                {#</td>#}
-            {#</tr>#}
-        {% endfor %}
-        {#</tbody>#}
-    {#</table>#}
-<script>
-
-    const alertsDurationInSeconds = 5;
-
-    // ON DOCUMENT READY
-    $(function () {
-
-        // AUTO CLOSE ALERTS IN A FEW SECONDS
-        setTimeout(function () {
-            $(".alert").alert('close');
-        }, alertsDurationInSeconds * 1000);})
 
 
+    {% for i, product in products %}
+        {% set r = ((i % articlesPerRow) == 0) %}
+        {% if r %}<div class="row my-4">{% endif %}
+        <div class="col-lg-{{ 12 / articlesPerRow }}">
+            <div class="d-flex flex-row bd-highlight mb-3">
+                {% include 'snippets/product_snippet.html.twig' %}
+            </div>
+        </div>
+        {% if loop.last or ((i % articlesPerRow) == articlesPerRow-1) %}</div>
+        {% endif %}
+    {% else %}
+        <h2 class="text-center">Nothing found.</h2>
+    {% endfor %}
 
-    var allNames =[];
-    var allParents = [];
-    $('#product_categories option').each(function(){
-        var text = $(this).text();
-        var name = text.split('/').reverse()[0]
-        var parent = text.replace(name,'');
-        allParents.push(parent);
-        allNames.push(name);
-    })
 
-    $('#product_categories option').each(function(){
-        console.log(allNames);
-        console.log(allParents);
-        var text = $(this).text();
-        if(allParents.indexOf(text) > 0) {
-            $(this).remove();
-        }
-    })
+    <script>
+
+        const alertsDurationInSeconds = 5;
+
+        // ON DOCUMENT READY
+        $(function () {
+
+            // AUTO CLOSE ALERTS IN A FEW SECONDS
+            setTimeout(function () {
+                $(".alert").alert('close');
+            }, alertsDurationInSeconds * 1000);
+        })
+
+
+        var allNames = [];
+        var allParents = [];
+        $('#product_categories option').each(function () {
+            var text = $(this).text();
+            var name = text.split('/').reverse()[0]
+            var parent = text.replace(name, '');
+            allParents.push(parent);
+            allNames.push(name);
+        })
+
+        $('#product_categories option').each(function () {
+            console.log(allNames);
+            console.log(allParents);
+            var text = $(this).text();
+            if (allParents.indexOf(text) > 0) {
+                $(this).remove();
+            }
+        })
 
         )
 
 
-        </script>
+    </script>
     <ul>
         <li>
             <a href="{{ path('product_new') }}">Create a new product</a>
         </li>
     </ul>
-{% endblock body%}
+{% endblock body %}
