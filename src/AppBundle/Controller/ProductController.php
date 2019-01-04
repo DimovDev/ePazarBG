@@ -47,8 +47,17 @@ class ProductController extends Controller
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+	    $user = $this->getUser();
+	    if ($user===null){
+		    $this->addFlash('error', 'You need to login or register to add  a advert');
 
+//				die('here');
+
+		    return $this->redirectToRoute('security_login');
+	    }
         if ($form->isSubmitted() && $form->isValid()) {
+
+        dump($form->getData());
 	        /** @var UploadedFile $file */
 	        $file = $form->getData()->getImage();
 

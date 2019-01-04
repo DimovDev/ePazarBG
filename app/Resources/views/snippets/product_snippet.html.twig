@@ -1,11 +1,11 @@
-<div class="card border bg-light text-center shadow">
+<div class="card border bg-light text-center shadow w-100">
 
     {#<a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a>#}
   {{ product.title }}
     {#{{ product.categories|join }}#}
     {#{{ product.description }}#}
 
-    <img class="mx-auto"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="600" height="400">
+    <img class="mx-auto w-100"  src="{{ asset('uploads/images/product/') ~  product.image }}" width="600" height="400">
    Price: {{ product.price }} lv.<br>
     {#{% if product.dateAdded %}{{ product.dateAdded|date('Y-m-d H:i:s') }}{% endif %}#}
     {#{{ product.authorId }}#}

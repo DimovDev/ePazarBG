@@ -71,7 +71,7 @@ class UserController extends Controller
 				} else {
 					$userRole = $roleRepository->findOneBy(['name' => 'ROLE_USER']);
 				}
-				$user->setImage('default_image_new.jpg');
+				$user->setImage('');
 				$user->addRole($userRole);
 				$user->setPassword($password);
 				$em = $this->getDoctrine()->getManager();

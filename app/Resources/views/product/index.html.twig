@@ -2,14 +2,14 @@
 
 {% block body %}
 
-    {% set articlesPerRow = 3 %}
+    {% set articlesPerRow = 4 %}
 
-    <h1>Products list</h1>
-    <ul>
-        <li>
-            <a href="{{ path('product_new') }}"><i class="fab fa-adversal" style="font-size: 2.2em;"></i> Create a new product</a>
-        </li>
-    </ul>
+    {#<h1>Products list</h1>#}
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('product_new') }}"><i class="fab fa-adversal" style="font-size: 2.2em;"></i> Create a new product</a>#}
+        {#</li>#}
+    {#</ul>#}
 
 
     {% for i, product in products %}
@@ -64,9 +64,5 @@
 
 
     </script>
-    <ul>
-        <li>
-            <a href="{{ path('product_new') }}">Create a new product</a>
-        </li>
-    </ul>
+
 {% endblock body %}

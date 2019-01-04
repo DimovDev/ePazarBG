@@ -19,11 +19,11 @@
                 {#{% endfor %}#}
                 <h2 style="text-align: center">Welcome, {{ user.fullName }}!</h2>
                 <h2 style="text-align: center">With email: {{ user.email }}</h2>
-                <img class="mx-auto"  src="{{ asset('uploads/images/profile/') ~  user.image }}" width="600" height="450">
+                <img class="mx-auto"     src="{{asset('/uploads/images/profile/') ~ app.user.image }}" width="300" height="300">
                 <div class="form-group">
                     <div class="col-sm-5 col-sm-offset-5">
                         <a class="btn btn-default" href="{{ path('homepage') }}">Home</a>
-                        <a class="btn btn-success" href="{{ path('profile_edit') }}">Edit Profile</a>
+                        {#<a class="btn btn-success" href="{{ path('profile_edit') }}">Edit Profile</a>#}
                     </div>
                 </div>
             </fieldset>

@@ -44,14 +44,17 @@
             /* Always set the map height explicitly to define the size of the div
              * element that contains the map. */
             #map {
-                height: 100%;
+                width: 100%;
+                height: 300px;
             }
+
             /* Optional: Makes the sample page fill the window. */
             html, body {
                 height: 100%;
                 margin: 0;
                 padding: 0;
             }
+
             #description {
                 font-family: Roboto;
                 font-size: 15px;
@@ -119,6 +122,7 @@
                 font-weight: 500;
                 padding: 6px 12px;
             }
+
             #target {
                 width: 345px;
             }
@@ -139,62 +143,82 @@
     <header>
 
         <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;">
-            <a class="navbar-brand" href="{{ path('product_index') }}">ePazarBG</a>
+            <a class="navbar-brand" href="{{ path('product_index') }}"> <img class="rounded-circle"
+                                                                                     src="{{ asset('/uploads/images/product/e6e8e27cac9c212e8ea6168436c43efb.gif') }}"
+                                                                                     width="120"
+                                                                                     height="50"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('security_logout') }}">
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
+                {#<form class="form-inline my-2 my-lg-0">#}
+                {#<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
+                {#<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
+                {#</form>#}
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a href="{{ path('product_new') }}" class="btn btn-warning" role="button">Add Advert</a>
+                    </li>
+                </ul>
                 {% if app.user %}
+                    {#<ul class="navbar-nav mr-right">#}
+                        {#<li class="nav-item">#}
+                            {#<a class="nav-link" href="{{ path('security_logout') }}">#}
+                                {#Logout#}
+                            {#</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+
 
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ path('homepage') }}">Home <span
-                                        class="sr-only">(current)</span></a>
-                        </li>
+                        {#<li class="nav-item active">#}
+                            {#<a href="{{ path('product_new') }}" class="btn btn-warning" role="button">Add Advert</a>#}
+                        {#</li>#}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('user_profile') }}">Profile</a>
                         </li>
 
-                        {% if app.user %}
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Profile
+
                                     <img class="rounded-circle"
-                                         src="{{ asset('uploads/images/profile/') ~  app.user.image }}" width="30"
+                                         src="{{ asset('/uploads/images/profile/') ~ app.user.image }}" width="30"
                                          height="30">
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ path('homepage') }}">Action</a>
-                                    <a class="dropdown-item" href="{{ path('homepage') }}">Another action</a>
+                                    <a class="dropdown-item" href="{{ path('profile_edit') }}">Edit Profile</a>
+                                    <a class="dropdown-item" href="{{ path('messages_new') }}">Create a new message</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ path('homepage') }}">Something else here</a>
+                                    <a class="dropdown-item" href="{{ path('security_logout') }}">Logout</a>
                                 </div>
                             </li>
                         {% endif %}
-                        {% if app.user.isAdmin %}
-                            <li class="nav-item">
-                                <a class="nav-link " href="{{ path('all_users') }}">Admin Panel</a>
-                            </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('category_index') }}">
-                                CATEGORY
-                            </a>
-                        </li>
-                        {% endif %}
+                        {% if  app.user and app.user.isAdmin %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin Panel</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('all_users') }}">Edit User Profile</a>
+
+                                <a class="dropdown-item" href="{{ path('roles_index') }}">Edit User Roles</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('category_index') }}"> Edit Category</a>
+                            </div>
+                        {#</li>#}
+                            {#<li class="nav-item">#}
+                                {#<a class="nav-link " href="{{ path('all_users') }}">Admin Panel</a>#}
+                            {#</li>#}
+                            {#<li class="nav-item">#}
+                                {#<a class="nav-link" href="{{ path('category_index') }}">#}
+                                    {#CATEGORY#}
+                                {#</a>#}
+                            {#</li>#}
+                        {#{% endif %}#}
                     </ul>
                 {% else %}
                     <ul class="navbar-nav mr-auto">
@@ -287,26 +311,29 @@
         // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
         function initAutocomplete() {
+
+            const locationFieldId = 'product_location';
+
             var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: -33.8688, lng: 151.2195},
-                zoom: 13,
+                center: {lat: 42.5, lng: 27.47},
+                zoom: 15,
                 mapTypeId: 'roadmap'
             });
 
             // Create the search box and link it to the UI element.
-            var input = document.getElementById('pac-input');
+            var input = document.getElementById(locationFieldId);
             var searchBox = new google.maps.places.SearchBox(input);
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
             // Bias the SearchBox results towards current map's viewport.
-            map.addListener('bounds_changed', function() {
+            map.addListener('bounds_changed', function () {
                 searchBox.setBounds(map.getBounds());
             });
 
             var markers = [];
             // Listen for the event fired when the user selects a prediction and retrieve
             // more details for that place.
-            searchBox.addListener('places_changed', function() {
+            searchBox.addListener('places_changed', function () {
                 var places = searchBox.getPlaces();
 
                 if (places.length == 0) {
@@ -314,14 +341,14 @@
                 }
 
                 // Clear out the old markers.
-                markers.forEach(function(marker) {
+                markers.forEach(function (marker) {
                     marker.setMap(null);
                 });
                 markers = [];
 
                 // For each place, get the icon, name and location.
                 var bounds = new google.maps.LatLngBounds();
-                places.forEach(function(place) {
+                places.forEach(function (place) {
                     if (!place.geometry) {
                         console.log("Returned place contains no geometry");
                         return;
@@ -356,11 +383,11 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmQfiROHjUiQYmUKCCnzfuQsfznK5tPHA
     &libraries=places&callback=initAutocomplete"
-    async defer></script>
+            async defer></script>
     {#<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmQfiROHjUiQYmUKCCnzfuQsfznK5tPHA#}
-{#&callback=initAutocomplete"#}
-            {#type="text/javascript"></script>#}
-
+    {#&callback=initAutocomplete"#}
+    {#type="text/javascript"></script>#}
+    {#async defer#}
 
 
 

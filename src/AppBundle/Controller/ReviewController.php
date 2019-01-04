@@ -46,6 +46,13 @@ class ReviewController extends Controller
     {
     	    	dump($product);
 	    $user = $this->getUser();
+	    if ($user===null){
+		    $this->addFlash('error', 'You need to login or register to add  a review');
+
+//				die('here');
+
+		    return $this->redirectToRoute('security_login');
+	    }
 dump($user);
 	    /** @var User $author */
 	    $author = $this

@@ -114,7 +114,7 @@ class User implements UserInterface
 	 */
 	public function setImage(? string $image)
 	{if(!$image){
-		$this->image='';
+		$this->image='default.jpeg';
 	}else {
 		$this->image = $image  ;
 	}

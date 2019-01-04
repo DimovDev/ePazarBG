@@ -59,6 +59,7 @@ class MessageController extends Controller
 	        $em->persist($currentUser);
 	        $em->flush();
 
+	        $this->addFlash("notice", "Message sent successfully!");
             return $this->redirectToRoute('messages_show', array('id' => $message->getId()));
         }
 
