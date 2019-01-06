@@ -18,7 +18,7 @@ class MessageController extends Controller
 {
     /**
      * Lists all message entities.
-     *
+     *@Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @Route("/", name="messages_index")
      * @Method("GET")
      */
@@ -32,6 +32,39 @@ class MessageController extends Controller
             'messages' => $messages,
         ));
     }
+	/**
+	 * Lists all message entities.
+	 *@Security("is_granted('IS_AUTHENTICATED_FULLY')")
+	 * @Route("/inbox", name="messages_inbox")
+	 * @Method("GET")
+	 */
+	public function indexActionInbox()
+	{
+		$em = $this->getDoctrine()->getManager();
+
+		$messages = $em->getRepository('AppBundle:Message')->findAll();
+
+		return $this->render('message/inbox.html.twig', array(
+			'messages' => $messages,
+
+		));
+	}
+	/**
+	 * Lists all message entities.
+	 *@Security("is_granted('IS_AUTHENTICATED_FULLY')")
+	 * @Route("/outbox", name="messages_outbox")
+	 * @Method("GET")
+	 */
+	public function indexActionOutbox()
+	{
+		$em = $this->getDoctrine()->getManager();
+
+		$messages = $em->getRepository('AppBundle:Message')->findAll();
+
+		return $this->render('message/outbox.html.twig', array(
+			'messages' => $messages,
+		));
+	}
 
     /**
      * Creates a new message entity.
@@ -60,7 +93,7 @@ class MessageController extends Controller
 	        $em->flush();
 
 	        $this->addFlash("notice", "Message sent successfully!");
-            return $this->redirectToRoute('messages_show', array('id' => $message->getId()));
+            return $this->redirectToRoute('messages_outbox', array('id' => $message->getId()));
         }
 
         return $this->render('message/new.html.twig', array(
@@ -87,7 +120,7 @@ class MessageController extends Controller
 
     /**
      * Displays a form to edit an existing message entity.
-     *
+     *@Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @Route("/{id}/edit", name="messages_edit")
      * @Method({"GET", "POST"})
      */

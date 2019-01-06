@@ -14,7 +14,8 @@ class MessageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('content')->add('timestamp')
+        $builder->add('title')->add('content')
+//	        ->add('timestamp')
 //	        ->add('sender')
 	        ->add('recipient');
     }/**

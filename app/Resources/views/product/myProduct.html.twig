@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container body-content">
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-12">
+                    <article>
+                        <header>
+                            <h2>Title: {{ product.title }}</h2>
+                        </header>
+
+                        <p>
+                            Content: {{ product.description }}
+                        </p>
+
+                        <img src="{{ asset('uploads/images/product/' ~ product.image) }}" width="400" height="200" >
+                        {% if app.getUser() or  app.getUser().isAdmin()   %}
+                        <footer>
+                            <div class="pull-right">
+                                <a class="btn btn-danger btn-xs" href="{{ path('product_delete', {'id':product.id}) }}">delete &raquo;</a>
+                                <a class="btn btn-success btn-xs" href="{{ path('product_edit', {'id':product.id}) }}">edit &raquo;</a>
+                                <a class="btn btn-default btn-xs"
+                                   href="{{ path('homepage') }}">back &raquo;</a>
+                            </div>
+                        </footer>
+                        {% endif %}
+                    </article>
+                </div>
+
+                <hr />
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

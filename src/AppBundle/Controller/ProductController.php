@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Review;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,18 +12,19 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\ProductType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Product controller.
  *
- * @Route("product")
+ *
  */
 class ProductController extends Controller
 {
     /**
      * Lists all product entities.
      *
-     * @Route("/", name="product_index")
+     * @Route("product/", name="product_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -39,7 +41,7 @@ class ProductController extends Controller
     /**
      * Creates a new product entity.
      *
-     * @Route("/new", name="product_new")
+     * @Route("product/new", name="product_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -93,11 +95,11 @@ class ProductController extends Controller
 	/**
 	 * Finds and displays a product entity.
 	 *
-	 * @Route("/{id}", name="product_show")
+	 * @Route("product/{id}", name="product_show")
 	 * @Method("GET")
 	 * @param $id
 	 * @param Product $product
-	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @return Response
 	 */
     public function showAction($id,Product $product)
     {
@@ -125,8 +127,8 @@ class ProductController extends Controller
 
     /**
      * Displays a form to edit an existing product entity.
-     *
-     * @Route("/{id}/edit", name="product_edit")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Route("product/{id}/edit", name="product_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Product $product)
@@ -170,8 +172,8 @@ class ProductController extends Controller
 
 	/**
 	 * Deletes a product entity.
-	 *
-	 * @Route("/{id}/delete", name="product_delete")
+	 *@Security("is_granted('IS_AUTHENTICATED_FULLY')")
+	 * @Route("product/{id}/delete", name="product_delete")
 	 * @Method("DELETE")
 	 * @param Request $request
 	 * @param Product $product
@@ -207,4 +209,30 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
+
+	/**
+ *  @Route("/myProduct", name="myProduct")
+ * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+ */
+	public function MyProduct(): Response
+	{
+		$products=$this->getDoctrine()
+			->getRepository(Product::class)
+			->findBy(['author'=>$this->getUser()]);
+		return $this->render('product/myProduct.html.twig',
+			['products'=>$products]);
+	}
+	/**
+	 *  @Route("/userProduct", name="userProduct")
+	 * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+	 */
+	public function UserProduct(): Response
+	{
+		$products=$this->getDoctrine()
+			->getRepository(Product::class)
+			->findBy(['author'=>$this->getUser()]);
+		dump($products);
+		return $this->render('product/userProduct.html.twig',
+			['products'=>$products]);
+	}
 }

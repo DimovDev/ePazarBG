@@ -176,10 +176,27 @@
                         {#<li class="nav-item active">#}
                             {#<a href="{{ path('product_new') }}" class="btn btn-warning" role="button">Add Advert</a>#}
                         {#</li>#}
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Message Box
+                                {#<img class="rounded-circle"#}
+                                     {#src="{{ asset('/uploads/images/profile/') ~ app.user.image }}" width="30"#}
+                                     {#height="30">#}
+                                <i class="far fa-envelope"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('messages_inbox') }}">Inbox</a>
+                                <a class="dropdown-item" href="{{ path('messages_outbox') }}">Outbox</a>
+                                <a class="dropdown-item" href="{{ path('messages_new') }}">Create a new message</a>
+                                {#<div class="dropdown-divider"></div>#}
+                                {#<a class="dropdown-item" href="{{ path('security_logout') }}">Logout</a>#}
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('user_profile') }}">Profile</a>
-                        </li>
-
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -191,11 +208,28 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ path('profile_edit') }}">Edit Profile</a>
-                                    <a class="dropdown-item" href="{{ path('messages_new') }}">Create a new message</a>
+                                    {#<a class="dropdown-item" href="{{ path('messages_new') }}">Create a new message</a>#}
+                                    <a class="dropdown-item" href="{{ path('myProduct') }}">My Advert</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ path('security_logout') }}">Logout</a>
                                 </div>
                             </li>
+                        {% else %}
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('user_register') }}">
+                                        REGISTER
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('security_login') }}">
+                                        LOGIN
+                                    </a>
+                                </li>
+
+
+                            </ul>
                         {% endif %}
                         {% if  app.user and app.user.isAdmin %}
                         <li class="nav-item dropdown">
@@ -220,23 +254,10 @@
                             {#</li>#}
                         {#{% endif %}#}
                     </ul>
-                {% else %}
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user_register') }}">
-                                REGISTER
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('security_login') }}">
-                                LOGIN
-                            </a>
-                        </li>
-
-
-                    </ul>
+                {#{% else %}#}
                 {% endif %}
+
+                {#{% endif %}#}
             </div>
         </nav>
     </header>

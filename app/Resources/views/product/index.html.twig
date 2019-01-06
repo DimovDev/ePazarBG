@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    {% set articlesPerRow = 4 %}
+    {% set productPerRow = 4 %}
 
     {#<h1>Products list</h1>#}
     {#<ul>#}
@@ -13,14 +13,14 @@
 
 
     {% for i, product in products %}
-        {% set r = ((i % articlesPerRow) == 0) %}
+        {% set r = ((i % productPerRow) == 0) %}
         {% if r %}<div class="row my-4">{% endif %}
-        <div class="col-lg-{{ 12 / articlesPerRow }}">
+        <div class="col-lg-{{ 12 / productPerRow }}">
             <div class="d-flex flex-row bd-highlight mb-3">
                 {% include 'snippets/product_snippet.html.twig' %}
             </div>
         </div>
-        {% if loop.last or ((i % articlesPerRow) == articlesPerRow-1) %}</div>
+        {% if loop.last or ((i % productPerRow) == productPerRow-1) %}</div>
         {% endif %}
     {% else %}
         <h2 class="text-center">Nothing found.</h2>
